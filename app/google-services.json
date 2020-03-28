@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "28039402632",
+    "firebase_url": "https://project-gist.firebaseio.com",
+    "project_id": "project-gist",
+    "storage_bucket": "project-gist.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:28039402632:android:ab0245d96cc5919a2dfb3d",
+        "android_client_info": {
+          "package_name": "com.rithikjain.projectgists"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "28039402632-0cq4qb95o9jthlkpsinj7ui84gicbe8c.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rithikjain.projectgists",
+            "certificate_hash": "51f98681dccfb3a6749fc19b5bbf37b384631b8a"
+          }
+        },
+        {
+          "client_id": "28039402632-bkk0182a6t1qcup37jmricd04lg4dllq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAY4gjVFKBXZQBZzl6HxpZcCDjgzG7WG64"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "28039402632-bkk0182a6t1qcup37jmricd04lg4dllq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
