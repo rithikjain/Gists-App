@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Project Gists</string>
+
+    <string name="test_test">Hello World \nWhats up \njust a test \nesh</string>
+</resources>
