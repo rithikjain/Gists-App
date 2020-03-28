@@ -12,7 +12,8 @@
         android:scaleType="centerCrop"
         android:contentDescription="Background image" />
 
-    <TextView
+    <Button
+        android:id="@+id/login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,7 +22,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         android:background="@color/colorPrimary"
         android:padding="16dp"
-        android:text="Hello World"
+        android:textAllCaps="false"
+        android:text="Login with GitHub"
         android:textColor="#FFFFFF"
         android:textSize="24sp"/>
 
