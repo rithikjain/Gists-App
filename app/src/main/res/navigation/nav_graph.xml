@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/gistsFragment">
+
+    <fragment
+        android:id="@+id/gistsFragment"
+        android:name="com.rithikjain.projectgists.ui.gists.GistsFragment"
+        android:label="fragment_gists"
+        tools:layout="@layout/fragment_gists" >
+        <action
+            android:id="@+id/action_gistsFragment_to_codeFragment"
+            app:destination="@id/codeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/codeFragment"
+        android:name="com.rithikjain.projectgists.ui.code.CodeFragment"
+        android:label="fragment_code"
+        tools:layout="@layout/fragment_code" />
+</navigation>
