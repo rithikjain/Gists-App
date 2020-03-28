@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.util.Log
 import com.google.android.gms.tasks.OnSuccessListener
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.OAuthCredential
 import com.google.firebase.auth.OAuthProvider
@@ -45,6 +46,7 @@ class GitHubAuth (private val activity: Activity) {
                     pref[Constants.PREF_AUTH_TOKEN] = oAuth.accessToken
 
                     activity.shortToast("Authentication Successful")
+
 
                     val intent = Intent(activity, PostAuthActivity::class.java)
                     activity.startActivity(intent)

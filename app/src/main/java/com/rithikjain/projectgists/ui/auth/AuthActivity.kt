@@ -29,7 +29,7 @@ class AuthActivity : AppCompatActivity() {
 
         val authHelper = GitHubAuth(this)
 
-        login.setOnClickListener {
+        loginButton.setOnClickListener {
             authHelper.signIn()
         }
     }
