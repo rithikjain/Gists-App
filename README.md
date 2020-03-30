@@ -1,8 +1,8 @@
-# GistsApp
+# Gists-App
 An unofficial mobile client to create and view GitHub Gists
 
 # Features
-- [ ] GitHub OAuth
+- [x] GitHub OAuth
 - [ ] Retreive Gists from GitHub
 - [ ] Create Gists
 - [ ] URL Shortner ?
