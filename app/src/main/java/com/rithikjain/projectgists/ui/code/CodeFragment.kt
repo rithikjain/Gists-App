@@ -1,14 +1,15 @@
 package com.rithikjain.projectgists.ui.code
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-
+import com.pddstudio.highlightjs.models.Language
+import com.pddstudio.highlightjs.models.Theme
 import com.rithikjain.projectgists.R
 import io.github.kbiakov.codeview.adapters.Options
 import io.github.kbiakov.codeview.highlight.ColorTheme
@@ -42,7 +43,7 @@ class CodeFragment : Fragment() {
 
         codeView.setOptions(
             Options.Default.get(requireContext())
-                .withLanguage(codeLanguage)
+                //.withLanguage(codeLanguage)
                 .withCode(codeString)
                 .withTheme(ColorTheme.MONOKAI)
         )

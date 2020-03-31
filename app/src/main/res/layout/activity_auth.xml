@@ -10,8 +10,8 @@
         android:id="@+id/titleText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#99424242"
-        android:text="Project Gists"
+
+        android:text="Easy Gists"
         android:textColor="#FFFFFF"
         android:textSize="42sp"
         android:textStyle="bold"
