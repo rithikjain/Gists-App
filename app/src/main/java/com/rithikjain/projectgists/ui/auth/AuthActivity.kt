@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import com.github.ybq.android.spinkit.style.CubeGrid
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.OAuthCredential
@@ -36,6 +37,9 @@ class AuthActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_auth)
 
+        authProgress.setIndeterminateDrawable(CubeGrid())
+        authProgress.Hide()
+
         val authViewModel by viewModel<AuthViewModel>()
         val firebaseAuth = FirebaseAuth.getInstance()
 
@@ -65,8 +69,6 @@ class AuthActivity : AppCompatActivity() {
                     .addOnSuccessListener {
                         val oAuth = it.credential as OAuthCredential
 
-                        shortToast("Authentication Successful")
-
                         val registerRequest = RegisterRequest(
                             it.user!!.email ?: "",
                             it.user!!.displayName ?: "",
@@ -79,9 +81,11 @@ class AuthActivity : AppCompatActivity() {
                                     Result.Status.LOADING -> {
                                         titleText.Hide()
                                         loginButton.Hide()
+                                        authProgress.Show()
                                     }
                                     Result.Status.SUCCESS -> {
                                         pref[Constants.PREF_AUTH_TOKEN] = response.data!!.Token
+                                        authProgress.Hide()
                                         val intent = Intent(this, PostAuthActivity::class.java)
                                         startActivity(intent)
                                         finish()
@@ -89,15 +93,20 @@ class AuthActivity : AppCompatActivity() {
                                     Result.Status.ERROR -> {
                                         titleText.Show()
                                         loginButton.Show()
+                                        authProgress.Hide()
                                         loginButton.isEnabled = true
                                         Log.d("esh", response.message)
-                                        longToast("Login failed, please try again")
+                                        longToast("Login failed, please try again!")
                                     }
                                 }
                             })
                     }
                     .addOnFailureListener {
-                        shortToast("Authentication Failed")
+                        titleText.Show()
+                        loginButton.Show()
+                        authProgress.Hide()
+                        loginButton.isEnabled = true
+                        shortToast("Authentication Failed, Try Again!")
                     }
             }
 
