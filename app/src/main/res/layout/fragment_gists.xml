@@ -43,8 +43,8 @@
                 android:layout_height="?attr/actionBarSize"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="8dp"
-                android:layout_marginTop="2dp"
-                android:layout_marginBottom="2dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
                 app:civ_border_width="1dp"
                 app:civ_border_color="#000000"
                 android:contentDescription="Profile Image" />
@@ -61,6 +61,19 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/noGistsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Hmm, Looks like you have no Gists"
+        android:textColor="#ffffff"
+        android:textStyle="italic"
+        android:textSize="18sp" />
 
     <com.github.ybq.android.spinkit.SpinKitView
         android:id="@+id/gistsProgress"

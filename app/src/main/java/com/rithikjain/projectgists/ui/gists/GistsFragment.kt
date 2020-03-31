@@ -48,6 +48,7 @@ class GistsFragment : Fragment() {
 
         gistsProgress.setIndeterminateDrawable(WanderingCubes())
         gistsProgress.Hide()
+        noGistsText.Hide()
 
         Log.d("esh", "Token: ${sharedPref.getString(Constants.PREF_AUTH_TOKEN, "")}")
 
@@ -74,10 +75,12 @@ class GistsFragment : Fragment() {
                 Result.Status.SUCCESS -> {
                     gistsProgress.Hide()
 
-                    val files = it.data!!.Files
-                    gistListAdapter.updateGists(files)
-
-                    Log.d("esh", it.data.toString())
+                    if (!it.data!!.Files.isNullOrEmpty()) {
+                        val files = it.data.Files
+                        gistListAdapter.updateGists(files)
+                    } else {
+                        noGistsText.Show()
+                    }
                 }
                 Result.Status.ERROR -> {
                     requireContext().shortToast("Error in fetching gists")
