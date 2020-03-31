@@ -8,10 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.bumptech.glide.Glide
 import com.github.ybq.android.spinkit.style.WanderingCubes
 import com.google.firebase.auth.FirebaseAuth
 import com.rithikjain.projectgists.R
+import com.rithikjain.projectgists.adapter.GistListAdapter
 import com.rithikjain.projectgists.model.Result
 import com.rithikjain.projectgists.ui.auth.AuthActivity
 import com.rithikjain.projectgists.util.*
@@ -58,6 +60,12 @@ class GistsFragment : Fragment() {
             .placeholder(R.drawable.ic_github_logo)
             .into(profileImage)
 
+        val gistListAdapter = GistListAdapter()
+        gistsRecyclerView.apply {
+            layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+            adapter = gistListAdapter
+        }
+
         gistsViewModel.viewAllGists().observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Result.Status.LOADING -> {
@@ -65,6 +73,10 @@ class GistsFragment : Fragment() {
                 }
                 Result.Status.SUCCESS -> {
                     gistsProgress.Hide()
+
+                    val files = it.data!!.Files
+                    gistListAdapter.updateGists(files)
+
                     Log.d("esh", it.data.toString())
                 }
                 Result.Status.ERROR -> {
