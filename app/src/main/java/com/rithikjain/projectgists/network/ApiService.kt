@@ -31,7 +31,7 @@ object ApiService {
                 )
                 .addHeader(
                     "Authorization",
-                    "token ${sharedPref.getString(Constants.PREF_AUTH_TOKEN, "")}"
+                    "Bearer ${sharedPref.getString(Constants.PREF_AUTH_TOKEN, "")}"
                 )
             val request = requestBuilder.build()
             return@addInterceptor chain.proceed(request)

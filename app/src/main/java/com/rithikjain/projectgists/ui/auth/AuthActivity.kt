@@ -6,6 +6,9 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.github.ybq.android.spinkit.style.CubeGrid
+import com.github.ybq.android.spinkit.style.FadingCircle
+import com.github.ybq.android.spinkit.style.FoldingCube
+import com.github.ybq.android.spinkit.style.WanderingCubes
 import com.google.android.gms.tasks.OnSuccessListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.OAuthCredential
@@ -37,7 +40,7 @@ class AuthActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_auth)
 
-        authProgress.setIndeterminateDrawable(CubeGrid())
+        authProgress.setIndeterminateDrawable(WanderingCubes())
         authProgress.Hide()
 
         val authViewModel by viewModel<AuthViewModel>()

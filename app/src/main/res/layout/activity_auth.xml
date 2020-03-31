@@ -47,7 +47,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         app:SpinKit_Color="@color/colorAccent"
-        style="@style/SpinKitView.CubeGrid"
+        style="@style/SpinKitView.WanderingCubes"
         android:elevation="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"

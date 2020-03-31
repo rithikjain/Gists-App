@@ -12,4 +12,6 @@ interface ApiInterface {
     @POST("user/register")
     suspend fun registerUser(@Body registerRequest: RegisterRequest): Response<RegisterResponse>
 
+
+
 }
