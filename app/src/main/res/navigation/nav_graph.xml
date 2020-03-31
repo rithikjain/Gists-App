@@ -12,11 +12,28 @@
         tools:layout="@layout/fragment_gists" >
         <action
             android:id="@+id/action_gistsFragment_to_codeFragment"
-            app:destination="@id/codeFragment" />
+            app:destination="@id/codeFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
     </fragment>
     <fragment
         android:id="@+id/codeFragment"
         android:name="com.rithikjain.projectgists.ui.code.CodeFragment"
         android:label="fragment_code"
-        tools:layout="@layout/fragment_code" />
+        tools:layout="@layout/fragment_code" >
+        <argument
+            android:name="codeString"
+            app:argType="string"
+            android:defaultValue=" " />
+        <argument
+            android:name="fileName"
+            app:argType="string"
+            android:defaultValue=" " />
+        <argument
+            android:name="codeLanguage"
+            app:argType="string"
+            android:defaultValue=" "/>
+    </fragment>
 </navigation>

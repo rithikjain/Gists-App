@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.bumptech.glide.Glide
 import com.github.ybq.android.spinkit.style.WanderingCubes
@@ -15,13 +16,18 @@ import com.google.firebase.auth.FirebaseAuth
 import com.rithikjain.projectgists.R
 import com.rithikjain.projectgists.adapter.GistListAdapter
 import com.rithikjain.projectgists.model.Result
+import com.rithikjain.projectgists.model.gists.File
 import com.rithikjain.projectgists.ui.auth.AuthActivity
 import com.rithikjain.projectgists.util.*
 import kotlinx.android.synthetic.main.fragment_gists.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
+import java.util.*
 
 
 class GistsFragment : Fragment() {
+
+    private lateinit var files: List<File>
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -73,6 +79,21 @@ class GistsFragment : Fragment() {
         gistsRefresh.setOnRefreshListener {
             getGists(gistsViewModel, gistListAdapter)
         }
+
+        gistsRecyclerView.addOnItemClickListener(object : OnItemClickListener {
+            override fun onItemClicked(position: Int, view: View) {
+                val content = files[position].Content
+                val language = files[position].Language.toLowerCase(Locale.ROOT)
+                val filename = files[position].Filename
+                Log.d("esh", language)
+                val action = GistsFragmentDirections.actionGistsFragmentToCodeFragment(
+                        content,
+                        filename,
+                        language
+                    )
+                findNavController().navigate(action)
+            }
+        })
     }
 
     private fun getGists(gistsViewModel: GistsViewModel, gistListAdapter: GistListAdapter) {
@@ -90,7 +111,7 @@ class GistsFragment : Fragment() {
                     gistsRefresh.isRefreshing = false
 
                     if (!it.data!!.Files.isNullOrEmpty()) {
-                        val files = it.data.Files
+                        files = it.data.Files
                         gistListAdapter.updateGists(files)
                     } else {
                         noGistsText.show()
