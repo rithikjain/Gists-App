@@ -5,4 +5,6 @@ import com.rithikjain.projectgists.repository.AppRepository
 
 class GistsViewModel(private val repo: AppRepository) : ViewModel() {
 
+    fun viewAllGists() = repo.viewAllGists()
+
 }

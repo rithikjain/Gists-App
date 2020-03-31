@@ -7,4 +7,6 @@ class ApiClient(private val api: ApiInterface) : BaseApiClient() {
     suspend fun registerUser(registerRequest: RegisterRequest) =
         getResult { api.registerUser(registerRequest) }
 
+    suspend fun viewAllGists() = getResult { api.viewAllGists() }
+
 }

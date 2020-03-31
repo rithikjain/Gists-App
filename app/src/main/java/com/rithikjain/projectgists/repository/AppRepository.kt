@@ -9,4 +9,6 @@ class AppRepository(private val apiClient: ApiClient, private val appDao: AppDao
     fun registerUser(registerRequest: RegisterRequest) =
         makeRequest { apiClient.registerUser(registerRequest) }
 
+    fun viewAllGists() = makeRequest { apiClient.viewAllGists() }
+
 }
