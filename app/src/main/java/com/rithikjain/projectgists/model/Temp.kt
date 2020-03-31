@@ -4,7 +4,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "gists")
-data class Gist(val fileName: String) {
+data class Temp(val fileName: String) {
     @PrimaryKey(autoGenerate = true)
     var id = 1
 }

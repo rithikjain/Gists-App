@@ -14,6 +14,7 @@ import com.rithikjain.projectgists.ui.auth.AuthActivity
 import com.rithikjain.projectgists.util.Constants
 import com.rithikjain.projectgists.util.PrefHelper
 import kotlinx.android.synthetic.main.fragment_gists.*
+import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 
 class GistsFragment : Fragment() {
@@ -26,6 +27,8 @@ class GistsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val gistsViewModel by sharedViewModel<GistsViewModel>()
 
         val sharedPref = PrefHelper.customPrefs(requireContext(), Constants.PREF_NAME)
 

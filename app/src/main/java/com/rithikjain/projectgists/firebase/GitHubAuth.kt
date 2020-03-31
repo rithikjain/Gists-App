@@ -8,13 +8,16 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.OAuthCredential
 import com.google.firebase.auth.OAuthProvider
+import com.rithikjain.projectgists.model.register.RegisterRequest
+import com.rithikjain.projectgists.repository.AppRepository
 import com.rithikjain.projectgists.ui.PostAuthActivity
+import com.rithikjain.projectgists.ui.auth.AuthViewModel
 import com.rithikjain.projectgists.util.Constants
 import com.rithikjain.projectgists.util.PrefHelper
 import com.rithikjain.projectgists.util.PrefHelper.set
 import com.rithikjain.projectgists.util.shortToast
 
-class GitHubAuth (private val activity: Activity) {
+class GitHubAuth (private val activity: Activity, private val viewModel: AuthViewModel) {
     private val firebaseAuth = FirebaseAuth.getInstance()
 
     private val provider = OAuthProvider.newBuilder("github.com")
@@ -29,7 +32,6 @@ class GitHubAuth (private val activity: Activity) {
         if (pendingResultTask != null) {
             pendingResultTask.addOnSuccessListener(
                 OnSuccessListener {
-                    Log.d("esh", firebaseAuth.currentUser!!.photoUrl.toString())
                     activity.shortToast("Success")
                 })
                 .addOnFailureListener {
@@ -47,10 +49,17 @@ class GitHubAuth (private val activity: Activity) {
 
                     activity.shortToast("Authentication Successful")
 
+                    val registerRequest = RegisterRequest(
+                        it.user!!.email ?: "",
+                        it.user!!.displayName ?: "",
+                        oAuth.accessToken
+                    )
 
+                    /*
                     val intent = Intent(activity, PostAuthActivity::class.java)
                     activity.startActivity(intent)
                     activity.finish()
+                     */
                 }
                 .addOnFailureListener {
                     activity.shortToast("Authentication Failed")
