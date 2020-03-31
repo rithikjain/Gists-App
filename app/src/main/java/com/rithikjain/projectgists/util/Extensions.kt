@@ -12,10 +12,18 @@ fun Context.longToast(string: String) {
     Toast.makeText(this, string, Toast.LENGTH_LONG).show()
 }
 
-fun View.Show() {
+fun View.show() {
     this.visibility = View.VISIBLE
 }
 
-fun View.Hide() {
+fun View.hide() {
     this.visibility = View.GONE
+}
+
+fun View.enable() {
+    this.isEnabled = true
+}
+
+fun View.disable() {
+    this.isEnabled = false
 }

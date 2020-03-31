@@ -41,7 +41,7 @@ class AuthActivity : AppCompatActivity() {
         setContentView(R.layout.activity_auth)
 
         authProgress.setIndeterminateDrawable(WanderingCubes())
-        authProgress.Hide()
+        authProgress.hide()
 
         val authViewModel by viewModel<AuthViewModel>()
         val firebaseAuth = FirebaseAuth.getInstance()
@@ -53,7 +53,7 @@ class AuthActivity : AppCompatActivity() {
         val pref = PrefHelper.customPrefs(this, Constants.PREF_NAME)
 
         loginButton.setOnClickListener {
-            loginButton.isEnabled = false
+            loginButton.disable()
 
             val pendingResultTask = firebaseAuth.pendingAuthResult
             if (pendingResultTask != null) {
@@ -82,22 +82,22 @@ class AuthActivity : AppCompatActivity() {
                             .observe(this, Observer { response ->
                                 when (response.status) {
                                     Result.Status.LOADING -> {
-                                        titleText.Hide()
-                                        loginButton.Hide()
-                                        authProgress.Show()
+                                        titleText.hide()
+                                        loginButton.hide()
+                                        authProgress.show()
                                     }
                                     Result.Status.SUCCESS -> {
                                         pref[Constants.PREF_AUTH_TOKEN] = response.data!!.Token
-                                        authProgress.Hide()
+                                        authProgress.hide()
                                         val intent = Intent(this, PostAuthActivity::class.java)
                                         startActivity(intent)
                                         finish()
                                     }
                                     Result.Status.ERROR -> {
-                                        titleText.Show()
-                                        loginButton.Show()
-                                        authProgress.Hide()
-                                        loginButton.isEnabled = true
+                                        titleText.show()
+                                        loginButton.show()
+                                        authProgress.hide()
+                                        loginButton.enable()
                                         Log.d("esh", response.message)
                                         longToast("Login failed, please try again!")
                                     }
@@ -105,10 +105,10 @@ class AuthActivity : AppCompatActivity() {
                             })
                     }
                     .addOnFailureListener {
-                        titleText.Show()
-                        loginButton.Show()
-                        authProgress.Hide()
-                        loginButton.isEnabled = true
+                        titleText.show()
+                        loginButton.show()
+                        authProgress.hide()
+                        loginButton.enable()
                         shortToast("Authentication Failed, Try Again!")
                     }
             }

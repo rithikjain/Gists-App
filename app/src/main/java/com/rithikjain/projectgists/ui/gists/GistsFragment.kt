@@ -47,8 +47,9 @@ class GistsFragment : Fragment() {
         }
 
         gistsProgress.setIndeterminateDrawable(WanderingCubes())
-        gistsProgress.Hide()
-        noGistsText.Hide()
+        gistsProgress.hide()
+        gistsRefresh.isRefreshing = false
+        noGistsText.hide()
 
         Log.d("esh", "Token: ${sharedPref.getString(Constants.PREF_AUTH_TOKEN, "")}")
 
@@ -67,23 +68,40 @@ class GistsFragment : Fragment() {
             adapter = gistListAdapter
         }
 
+        getGists(gistsViewModel, gistListAdapter)
+
+        gistsRefresh.setOnRefreshListener {
+            getGists(gistsViewModel, gistListAdapter)
+        }
+    }
+
+    private fun getGists(gistsViewModel: GistsViewModel, gistListAdapter: GistListAdapter) {
         gistsViewModel.viewAllGists().observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Result.Status.LOADING -> {
-                    gistsProgress.Show()
+                    gistsProgress.show()
+                    gistsRefresh.disable()
+                    gistsRecyclerView.hide()
                 }
                 Result.Status.SUCCESS -> {
-                    gistsProgress.Hide()
+                    gistsProgress.hide()
+                    gistsRefresh.enable()
+                    gistsRecyclerView.show()
+                    gistsRefresh.isRefreshing = false
 
                     if (!it.data!!.Files.isNullOrEmpty()) {
                         val files = it.data.Files
                         gistListAdapter.updateGists(files)
                     } else {
-                        noGistsText.Show()
+                        noGistsText.show()
                     }
                 }
                 Result.Status.ERROR -> {
                     requireContext().shortToast("Error in fetching gists")
+                    gistsProgress.hide()
+                    gistsRefresh.enable()
+                    gistsRecyclerView.show()
+                    gistsRefresh.isRefreshing = false
                     Log.d("esh", it.message)
                 }
             }
