@@ -94,6 +94,11 @@ class GistsFragment : Fragment() {
                 findNavController().navigate(action)
             }
         })
+
+        addGistBtn.setOnClickListener {
+            val action = GistsFragmentDirections.actionGistsFragmentToAddGistFragment()
+            findNavController().navigate(action)
+        }
     }
 
     private fun getGists(gistsViewModel: GistsViewModel, gistListAdapter: GistListAdapter) {
