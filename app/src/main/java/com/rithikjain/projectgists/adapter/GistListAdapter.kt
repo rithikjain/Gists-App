@@ -10,10 +10,15 @@ import kotlinx.android.synthetic.main.gist_recycler_view_item.view.*
 
 class GistListAdapter : RecyclerView.Adapter<GistListAdapter.GistViewHolder>() {
 
-    private var gistList: List<File> = mutableListOf()
+    var gistList: MutableList<File> = mutableListOf()
 
     fun updateGists(newGists: List<File>) {
-        gistList = newGists
+        gistList = newGists as MutableList<File>
+        notifyDataSetChanged()
+    }
+
+    fun remove(position: Int) {
+        gistList.removeAt(position)
         notifyDataSetChanged()
     }
 

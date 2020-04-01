@@ -43,25 +43,6 @@
                 android:textColor="#ffffff"
                 android:textSize="16sp" />
 
-            <ImageView
-                android:id="@+id/cancelButton"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_centerVertical="true"
-                android:layout_marginStart="10dp"
-                android:src="@drawable/ic_cancel"
-                android:visibility="gone" />
-
-            <ImageView
-                android:id="@+id/deleteButton"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="10dp"
-                android:src="@drawable/ic_delete"
-                android:visibility="gone" />
-
         </RelativeLayout>
 
     </com.google.android.material.card.MaterialCardView>

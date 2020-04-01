@@ -1,6 +1,7 @@
 package com.rithikjain.projectgists.network
 
 import com.rithikjain.projectgists.model.gists.CreateGistRequest
+import com.rithikjain.projectgists.model.gists.DeleteGistRequest
 import com.rithikjain.projectgists.model.gists.ViewGistsResponse
 import com.rithikjain.projectgists.model.register.RegisterRequest
 import com.rithikjain.projectgists.model.register.RegisterResponse
@@ -20,5 +21,8 @@ interface ApiInterface {
 
     @POST("gists/create")
     suspend fun createGist(@Body createGistRequest: CreateGistRequest): Response<ViewGistsResponse>
+
+    @POST("gists/delete")
+    suspend fun deleteGist(@Body deleteGistRequest: DeleteGistRequest): Response<DeleteGistRequest>
 
 }

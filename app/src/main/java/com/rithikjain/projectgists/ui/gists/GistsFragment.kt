@@ -16,19 +16,18 @@ import com.google.firebase.auth.FirebaseAuth
 import com.rithikjain.projectgists.R
 import com.rithikjain.projectgists.adapter.GistListAdapter
 import com.rithikjain.projectgists.model.Result
+import com.rithikjain.projectgists.model.gists.DeleteGistRequest
 import com.rithikjain.projectgists.model.gists.File
 import com.rithikjain.projectgists.util.*
-import kotlinx.android.synthetic.main.fragment_add_gist.view.*
 import kotlinx.android.synthetic.main.fragment_gists.*
 import kotlinx.android.synthetic.main.gist_recycler_view_item.view.*
-import kotlinx.android.synthetic.main.gist_recycler_view_item.view.fileNameText
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 import java.util.*
 
 
 class GistsFragment : Fragment() {
 
-    private lateinit var files: List<File>
+    private lateinit var files: MutableList<File>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -96,22 +95,27 @@ class GistsFragment : Fragment() {
 
         gistsRecyclerView.addOnItemLongClickListener(object : OnItemClickListener {
             override fun onItemClicked(position: Int, view: View) {
-                view.gistCard.strokeColor = ContextCompat.getColor(requireContext(), R.color.red)
-                view.fileNameText.hide()
-                view.descriptionText.hide()
-                view.cancelButton.show()
-                view.deleteButton.show()
-                view.isEnabled = false
+                val deleteGistRequest = DeleteGistRequest(
+                    gistListAdapter.gistList[position].GistID,
+                    gistListAdapter.gistList[position].Filename
+                )
 
-                view.cancelButton.setOnClickListener {
-                    view.gistCard.strokeColor =
-                        ContextCompat.getColor(requireContext(), R.color.colorAccent)
-                    view.fileNameText.show()
-                    view.descriptionText.show()
-                    view.cancelButton.hide()
-                    view.deleteButton.hide()
-                    view.isEnabled = true
-                }
+                gistsViewModel.deleteGist(deleteGistRequest)
+                    .observe(viewLifecycleOwner, Observer {
+                        when (it.status) {
+                            Result.Status.LOADING -> {
+                                requireContext().shortToast("Loading")
+                            }
+                            Result.Status.SUCCESS -> {
+                                gistListAdapter.remove(position)
+
+                                requireContext().shortToast("Deleted")
+                            }
+                            Result.Status.ERROR -> {
+                                requireContext().shortToast("Error Occured!")
+                            }
+                        }
+                    })
             }
         })
 
@@ -136,7 +140,7 @@ class GistsFragment : Fragment() {
                     gistsRefresh.isRefreshing = false
 
                     if (!it.data!!.Files.isNullOrEmpty()) {
-                        files = it.data.Files
+                        files = it.data.Files as MutableList<File>
                         gistListAdapter.updateGists(files)
                     } else {
                         noGistsText.show()
