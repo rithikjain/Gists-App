@@ -14,7 +14,19 @@
         app:layout_constraintTop_toTopOf="parent"
         app:titleTextColor="#ffffff" />
 
+    <com.github.ybq.android.spinkit.SpinKitView
+        android:id="@+id/addGistProgress"
+        style="@style/SpinKitView.WanderingCubes"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:elevation="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ScrollView
+        android:id="@+id/detailsView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -60,14 +72,15 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <RadioGroup
+                android:id="@+id/publicOrPrivate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
                 android:background="@drawable/radio_button_style"
                 android:checkedButton="@id/isPublic"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingTop="8dp"
+                android:paddingBottom="8dp">
 
                 <RadioButton
                     android:id="@+id/isPublic"

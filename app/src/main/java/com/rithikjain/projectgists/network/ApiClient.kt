@@ -1,5 +1,6 @@
 package com.rithikjain.projectgists.network
 
+import com.rithikjain.projectgists.model.gists.CreateGistRequest
 import com.rithikjain.projectgists.model.register.RegisterRequest
 
 class ApiClient(private val api: ApiInterface) : BaseApiClient() {
@@ -8,5 +9,8 @@ class ApiClient(private val api: ApiInterface) : BaseApiClient() {
         getResult { api.registerUser(registerRequest) }
 
     suspend fun viewAllGists() = getResult { api.viewAllGists() }
+
+    suspend fun createGist(createGistRequest: CreateGistRequest) =
+        getResult { api.createGist(createGistRequest) }
 
 }
