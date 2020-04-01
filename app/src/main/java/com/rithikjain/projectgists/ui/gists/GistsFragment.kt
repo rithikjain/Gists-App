@@ -1,6 +1,5 @@
 package com.rithikjain.projectgists.ui.gists
 
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -17,7 +16,6 @@ import com.rithikjain.projectgists.R
 import com.rithikjain.projectgists.adapter.GistListAdapter
 import com.rithikjain.projectgists.model.Result
 import com.rithikjain.projectgists.model.gists.File
-import com.rithikjain.projectgists.ui.auth.AuthActivity
 import com.rithikjain.projectgists.util.*
 import kotlinx.android.synthetic.main.fragment_gists.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
@@ -45,13 +43,6 @@ class GistsFragment : Fragment() {
         val firebaseAuth = FirebaseAuth.getInstance()
         val photoUri = firebaseAuth.currentUser!!.photoUrl
 
-        logOutBtn.setOnClickListener {
-            firebaseAuth.signOut()
-            val intent = Intent(activity, AuthActivity::class.java)
-            startActivity(intent)
-            requireActivity().finish()
-        }
-
         gistsProgress.setIndeterminateDrawable(WanderingCubes())
         gistsProgress.hide()
         gistsRefresh.isRefreshing = false
@@ -67,6 +58,11 @@ class GistsFragment : Fragment() {
             .centerCrop()
             .placeholder(R.drawable.ic_github_logo)
             .into(profileImage)
+
+        profileImage.setOnClickListener {
+            val action = GistsFragmentDirections.actionGistsFragmentToProfileFragment()
+            findNavController().navigate(action)
+        }
 
         val gistListAdapter = GistListAdapter()
         gistsRecyclerView.apply {
