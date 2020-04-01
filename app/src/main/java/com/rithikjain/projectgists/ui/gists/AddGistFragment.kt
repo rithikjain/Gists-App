@@ -60,7 +60,9 @@ class AddGistFragment : Fragment() {
                     }
                 }
                 R.id.saveCode -> {
-                    requireContext().shortToast("Save")
+                    if (validateFields(requireContext())) {
+
+                    }
                 }
             }
             return@setOnMenuItemClickListener false
