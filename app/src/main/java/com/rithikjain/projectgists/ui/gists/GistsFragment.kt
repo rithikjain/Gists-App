@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -17,7 +18,10 @@ import com.rithikjain.projectgists.adapter.GistListAdapter
 import com.rithikjain.projectgists.model.Result
 import com.rithikjain.projectgists.model.gists.File
 import com.rithikjain.projectgists.util.*
+import kotlinx.android.synthetic.main.fragment_add_gist.view.*
 import kotlinx.android.synthetic.main.fragment_gists.*
+import kotlinx.android.synthetic.main.gist_recycler_view_item.view.*
+import kotlinx.android.synthetic.main.gist_recycler_view_item.view.fileNameText
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 import java.util.*
 
@@ -83,10 +87,31 @@ class GistsFragment : Fragment() {
                 val filename = files[position].Filename
                 Log.d("esh", language)
                 val action = GistsFragmentDirections.actionGistsFragmentToCodeFragment(
-                        content,
-                        filename
-                    )
+                    content,
+                    filename
+                )
                 findNavController().navigate(action)
+            }
+        })
+
+        gistsRecyclerView.addOnItemLongClickListener(object : OnItemClickListener {
+            override fun onItemClicked(position: Int, view: View) {
+                view.gistCard.strokeColor = ContextCompat.getColor(requireContext(), R.color.red)
+                view.fileNameText.hide()
+                view.descriptionText.hide()
+                view.cancelButton.show()
+                view.deleteButton.show()
+                view.isEnabled = false
+
+                view.cancelButton.setOnClickListener {
+                    view.gistCard.strokeColor =
+                        ContextCompat.getColor(requireContext(), R.color.colorAccent)
+                    view.fileNameText.show()
+                    view.descriptionText.show()
+                    view.cancelButton.hide()
+                    view.deleteButton.hide()
+                    view.isEnabled = true
+                }
             }
         })
 

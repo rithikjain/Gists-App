@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="4dp" >
+    android:layout_margin="4dp"
+    android:orientation="vertical">
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/gistCard"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:cardBackgroundColor="@color/colorPrimary"
         app:cardCornerRadius="12dp"
         app:cardElevation="8dp"
         app:strokeColor="#ffffff"
-        app:strokeWidth="1dp"
-        app:cardBackgroundColor="@color/colorPrimary" >
+        app:strokeWidth="1dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -26,10 +26,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
-                android:textSize="16sp"
-                android:textStyle="bold"
+                android:text="hello_world.py"
                 android:textColor="#ffffff"
-                android:text="hello_world.py" />
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/descriptionText"
@@ -39,9 +39,28 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
+                android:text="This is the description of the file yayy"
                 android:textColor="#ffffff"
-                android:textSize="16sp"
-                android:text="This is the description of the file yayy" />
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/cancelButton"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/ic_cancel"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/deleteButton"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="10dp"
+                android:src="@drawable/ic_delete"
+                android:visibility="gone" />
 
         </RelativeLayout>
 
