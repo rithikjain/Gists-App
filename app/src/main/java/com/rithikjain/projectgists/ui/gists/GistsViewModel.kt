@@ -5,6 +5,10 @@ import com.rithikjain.projectgists.repository.AppRepository
 
 class GistsViewModel(private val repo: AppRepository) : ViewModel() {
 
+    var fileName = ""
+    var fileCode = ""
+    var fileDescription = ""
+
     fun viewAllGists() = repo.viewAllGists()
 
 }

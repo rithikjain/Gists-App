@@ -38,10 +38,6 @@
             android:name="fileName"
             app:argType="string"
             android:defaultValue=" " />
-        <argument
-            android:name="codeLanguage"
-            app:argType="string"
-            android:defaultValue=" "/>
     </fragment>
     <fragment
         android:id="@+id/addGistFragment"
@@ -50,6 +46,10 @@
         tools:layout="@layout/fragment_add_gist" >
         <action
             android:id="@+id/action_addGistFragment_to_codeFragment"
-            app:destination="@id/codeFragment" />
+            app:destination="@id/codeFragment"
+            app:enterAnim="@anim/enter_from_right"
+            app:exitAnim="@anim/exit_to_left"
+            app:popEnterAnim="@anim/enter_from_left"
+            app:popExitAnim="@anim/exit_to_right" />
     </fragment>
 </navigation>

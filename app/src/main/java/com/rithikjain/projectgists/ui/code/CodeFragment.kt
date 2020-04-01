@@ -31,7 +31,6 @@ class CodeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         val codeString = args.codeString
-        val codeLanguage = args.codeLanguage
         val filename = args.fileName
 
         codeToolbar.title = filename
@@ -43,7 +42,6 @@ class CodeFragment : Fragment() {
 
         codeView.setOptions(
             Options.Default.get(requireContext())
-                //.withLanguage(codeLanguage)
                 .withCode(codeString)
                 .withTheme(ColorTheme.MONOKAI)
         )

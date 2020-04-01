@@ -33,7 +33,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
-                android:hint="File Name"
+                android:hint="File Name With Extension"
                 app:startIconDrawable="@drawable/ic_file">
 
                 <com.google.android.material.textfield.TextInputEditText
