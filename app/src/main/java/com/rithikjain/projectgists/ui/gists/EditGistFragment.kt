@@ -2,24 +2,20 @@ package com.rithikjain.projectgists.ui.gists
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.github.ybq.android.spinkit.style.WanderingCubes
-
 import com.rithikjain.projectgists.R
 import com.rithikjain.projectgists.model.Result
-import com.rithikjain.projectgists.model.gists.CreateGistRequest
 import com.rithikjain.projectgists.model.gists.UpdateGistRequest
-import com.rithikjain.projectgists.util.hide
-import com.rithikjain.projectgists.util.shortToast
-import com.rithikjain.projectgists.util.show
-import kotlinx.android.synthetic.main.fragment_add_gist.*
+import com.rithikjain.projectgists.util.*
+import com.rithikjain.projectgists.util.PrefHelper.set
 import kotlinx.android.synthetic.main.fragment_edit_gist.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 
@@ -27,6 +23,10 @@ import org.koin.android.viewmodel.ext.android.sharedViewModel
 class EditGistFragment : Fragment() {
 
     private val args by navArgs<EditGistFragmentArgs>()
+    private lateinit var gistID: String
+    private lateinit var filename: String
+    private lateinit var content: String
+    private lateinit var description: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,10 +54,18 @@ class EditGistFragment : Fragment() {
             findNavController().navigate(action)
         }
 
-        val gistID = args.gistid
-        val filename = args.filename
-        val content = args.code
-        val description = args.description
+        val sharedPref = PrefHelper.customPrefs(requireContext(), Constants.PREF_NAME)
+
+        gistID = args.gistid
+        filename = args.filename
+
+        if (sharedPref.getString(Constants.PREF_EDIT_CODE, "") == "") {
+            content = args.code
+            description = args.description
+        } else {
+            content = sharedPref.getString(Constants.PREF_EDIT_CODE, "")!!
+            description = sharedPref.getString(Constants.PREF_EDIT_DESCRIPTION, "")!!
+        }
 
         editFileNameText.editText!!.setText(filename)
         editFileDescriptionText.editText!!.setText(description)
@@ -68,6 +76,11 @@ class EditGistFragment : Fragment() {
             when (it.itemId) {
                 R.id.editPreviewCode -> {
                     if (validateFields(requireContext())) {
+                        sharedPref[Constants.PREF_EDIT_CODE] =
+                            editFileCodeText.editText!!.text.toString()
+                        sharedPref[Constants.PREF_EDIT_DESCRIPTION] =
+                            editFileDescriptionText.editText!!.text.toString()
+
                         val action =
                             EditGistFragmentDirections.actionEditGistFragmentToCodeFragment(
                                 editFileCodeText.editText!!.text.toString(),

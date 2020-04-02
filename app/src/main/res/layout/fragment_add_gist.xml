@@ -117,6 +117,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
                     android:gravity="top"
+                    android:scrollHorizontally="true"
                     android:inputType="textMultiLine"
                     android:minLines="5" />
 

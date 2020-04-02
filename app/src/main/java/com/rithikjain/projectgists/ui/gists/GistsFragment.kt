@@ -1,12 +1,10 @@
 package com.rithikjain.projectgists.ui.gists
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
@@ -21,8 +19,8 @@ import com.rithikjain.projectgists.model.Result
 import com.rithikjain.projectgists.model.gists.DeleteGistRequest
 import com.rithikjain.projectgists.model.gists.File
 import com.rithikjain.projectgists.util.*
+import com.rithikjain.projectgists.util.PrefHelper.set
 import kotlinx.android.synthetic.main.fragment_gists.*
-import kotlinx.android.synthetic.main.gist_recycler_view_item.view.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 import java.util.*
 
@@ -42,8 +40,14 @@ class GistsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val gistsViewModel by sharedViewModel<GistsViewModel>()
+        gistsViewModel.fileName = ""
+        gistsViewModel.fileCode = ""
+        gistsViewModel.fileDescription = ""
 
         val sharedPref = PrefHelper.customPrefs(requireContext(), Constants.PREF_NAME)
+
+        sharedPref[Constants.PREF_EDIT_CODE] = ""
+        sharedPref[Constants.PREF_EDIT_DESCRIPTION] = ""
 
         val firebaseAuth = FirebaseAuth.getInstance()
         val photoUri = firebaseAuth.currentUser!!.photoUrl
