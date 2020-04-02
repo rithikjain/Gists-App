@@ -1,5 +1,6 @@
 package com.rithikjain.projectgists.ui.gists
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.bumptech.glide.Glide
 import com.github.ybq.android.spinkit.style.WanderingCubes
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.rithikjain.projectgists.R
 import com.rithikjain.projectgists.adapter.GistListAdapter
@@ -84,11 +86,15 @@ class GistsFragment : Fragment() {
                 val content = files[position].Content
                 val language = files[position].Language.toLowerCase(Locale.ROOT)
                 val filename = files[position].Filename
+                val description = files[position].Description
+                val gistID = files[position].GistID
                 Log.d("esh", language)
                 val action = GistsFragmentDirections.actionGistsFragmentToCodeFragment(
                     content,
                     filename,
-                    true
+                    true,
+                    description,
+                    gistID
                 )
                 findNavController().navigate(action)
             }
@@ -101,22 +107,34 @@ class GistsFragment : Fragment() {
                     gistListAdapter.gistList[position].Filename
                 )
 
-                gistsViewModel.deleteGist(deleteGistRequest)
-                    .observe(viewLifecycleOwner, Observer {
-                        when (it.status) {
-                            Result.Status.LOADING -> {
-                                requireContext().shortToast("Loading")
-                            }
-                            Result.Status.SUCCESS -> {
-                                gistListAdapter.remove(position)
+                MaterialAlertDialogBuilder(requireContext())
+                    .setTitle(gistListAdapter.gistList[position].Filename)
+                    .setMessage("Delete this gist?")
+                    .setIcon(R.drawable.ic_delete)
+                    .setPositiveButton("Yes") { dialog, _ ->
+                        gistsViewModel.deleteGist(deleteGistRequest)
+                            .observe(viewLifecycleOwner, Observer {
+                                when (it.status) {
+                                    Result.Status.LOADING -> {
 
-                                requireContext().shortToast("Deleted")
-                            }
-                            Result.Status.ERROR -> {
-                                requireContext().shortToast("Error Occured!")
-                            }
-                        }
-                    })
+                                    }
+                                    Result.Status.SUCCESS -> {
+                                        gistListAdapter.remove(position)
+
+                                        dialog.dismiss()
+                                        requireContext().shortToast("Deleted")
+                                    }
+                                    Result.Status.ERROR -> {
+                                        dialog.dismiss()
+                                        requireContext().shortToast("Error Occurred!")
+                                    }
+                                }
+                            })
+                    }
+                    .setNegativeButton("Cancel") { dialog, _ ->
+                        dialog.cancel()
+                    }
+                    .show()
             }
         })
 

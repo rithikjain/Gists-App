@@ -29,6 +29,8 @@ class CodeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
+        val gistID = args.gistID
+        val description = args.description
         val codeString = args.codeString
         val filename = args.fileName
         val canEdit = args.canEdit
@@ -44,7 +46,13 @@ class CodeFragment : Fragment() {
             codeToolbar.inflateMenu(R.menu.code_toolbar_menu)
             codeToolbar.setOnMenuItemClickListener {
                 if (it.itemId == R.id.editButton) {
-                    requireContext().shortToast("Edit")
+                    val action = CodeFragmentDirections.actionCodeFragmentToEditGistFragment(
+                        gistID,
+                        filename,
+                        description,
+                        codeString
+                    )
+                    findNavController().navigate(action)
                 }
                 return@setOnMenuItemClickListener false
             }

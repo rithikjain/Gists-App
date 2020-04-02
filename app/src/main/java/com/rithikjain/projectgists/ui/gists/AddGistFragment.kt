@@ -43,7 +43,7 @@ class AddGistFragment : Fragment() {
         fileNameText.editText!!.setText(gistsViewModel.fileName)
         fileDescriptionText.editText!!.setText(gistsViewModel.fileDescription)
 
-        addGistToolbar.title = "Add A Gist"
+        addGistToolbar.title = "Create Gist"
         addGistToolbar.navigationIcon =
             ContextCompat.getDrawable(requireContext(), R.drawable.ic_arrow_back)
         addGistToolbar.setNavigationOnClickListener {
