@@ -2,6 +2,7 @@ package com.rithikjain.projectgists.network
 
 import com.rithikjain.projectgists.model.gists.CreateGistRequest
 import com.rithikjain.projectgists.model.gists.DeleteGistRequest
+import com.rithikjain.projectgists.model.gists.UpdateGistRequest
 import com.rithikjain.projectgists.model.register.RegisterRequest
 
 class ApiClient(private val api: ApiInterface) : BaseApiClient() {
@@ -16,5 +17,8 @@ class ApiClient(private val api: ApiInterface) : BaseApiClient() {
 
     suspend fun deleteGist(deleteGistRequest: DeleteGistRequest) =
         getResult { api.deleteGist(deleteGistRequest) }
+
+    suspend fun updateGist(updateGistRequest: UpdateGistRequest) =
+        getResult { api.updateGist(updateGistRequest) }
 
 }

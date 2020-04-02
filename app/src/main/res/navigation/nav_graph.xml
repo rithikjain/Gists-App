@@ -45,6 +45,17 @@
             android:name="fileName"
             app:argType="string"
             android:defaultValue=" " />
+        <action
+            android:id="@+id/action_codeFragment_to_addGistFragment"
+            app:destination="@id/addGistFragment"
+            app:enterAnim="@anim/fade_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/fade_out" />
+        <argument
+            android:name="canEdit"
+            app:argType="boolean"
+            android:defaultValue="false" />
     </fragment>
     <fragment
         android:id="@+id/addGistFragment"

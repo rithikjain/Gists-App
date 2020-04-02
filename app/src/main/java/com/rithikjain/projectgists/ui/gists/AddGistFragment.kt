@@ -64,7 +64,8 @@ class AddGistFragment : Fragment() {
                             fileDescriptionText.editText!!.text.toString()
                         val action = AddGistFragmentDirections.actionAddGistFragmentToCodeFragment(
                             fileCodeText.editText!!.text.toString(),
-                            fileNameText.editText!!.text.toString()
+                            fileNameText.editText!!.text.toString(),
+                            false
                         )
                         findNavController().navigate(action)
                     }

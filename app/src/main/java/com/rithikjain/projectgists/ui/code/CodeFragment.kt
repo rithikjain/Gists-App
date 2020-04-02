@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.rithikjain.projectgists.R
+import com.rithikjain.projectgists.util.shortToast
 import io.github.kbiakov.codeview.adapters.Options
 import io.github.kbiakov.codeview.highlight.ColorTheme
 import kotlinx.android.synthetic.main.fragment_code.*
@@ -30,12 +31,23 @@ class CodeFragment : Fragment() {
 
         val codeString = args.codeString
         val filename = args.fileName
+        val canEdit = args.canEdit
 
         codeToolbar.title = filename
         codeToolbar.navigationIcon =
             ContextCompat.getDrawable(requireContext(), R.drawable.ic_arrow_back)
         codeToolbar.setNavigationOnClickListener {
             findNavController().navigateUp()
+        }
+
+        if (canEdit) {
+            codeToolbar.inflateMenu(R.menu.code_toolbar_menu)
+            codeToolbar.setOnMenuItemClickListener {
+                if (it.itemId == R.id.editButton) {
+                    requireContext().shortToast("Edit")
+                }
+                return@setOnMenuItemClickListener false
+            }
         }
 
         codeView.setOptions(

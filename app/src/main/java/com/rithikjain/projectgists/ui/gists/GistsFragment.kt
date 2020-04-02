@@ -87,7 +87,8 @@ class GistsFragment : Fragment() {
                 Log.d("esh", language)
                 val action = GistsFragmentDirections.actionGistsFragmentToCodeFragment(
                     content,
-                    filename
+                    filename,
+                    true
                 )
                 findNavController().navigate(action)
             }
