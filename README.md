@@ -13,6 +13,6 @@ An unofficial mobile client to create and view GitHub Gists
 - [x] Create Gists
 - [x] Update Gists
 - [x] Delete Gists
-- [ ] Add Offline support
+- [X] Add Offline support
 - [ ] Add a better code view
 - [ ] URL Shortner ?
