@@ -129,8 +129,12 @@ class GistsFragment : Fragment() {
                                         requireContext().shortToast("Deleted")
                                     }
                                     Result.Status.ERROR -> {
-                                        dialog.dismiss()
-                                        requireContext().shortToast("Error Occurred!")
+                                        if (it.message != "404 Not Found") {
+                                            requireContext().shortToast("Error Occurred!")
+                                        } else {
+                                            dialog.dismiss()
+                                            requireContext().shortToast("Deleted")
+                                        }
                                     }
                                 }
                             })
