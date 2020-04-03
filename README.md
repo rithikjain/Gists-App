@@ -10,8 +10,9 @@ An unofficial mobile client to create and view GitHub Gists
 # Features
 - [x] GitHub OAuth
 - [x] Retreive Gists from GitHub
-- [ ] Create Gists
-- [ ] Update Gists
-- [ ] Delete Gists
+- [x] Create Gists
+- [x] Update Gists
+- [x] Delete Gists
+- [ ] Add Offline support
 - [ ] Add a better code view
 - [ ] URL Shortner ?
