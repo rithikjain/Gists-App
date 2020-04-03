@@ -187,10 +187,9 @@ class GistsFragment : Fragment() {
                     }
                 }
                 Result.Status.ERROR -> {
-                    if (it.message != getString(R.string.internet_error)) {
+                    if (!(it.message == getString(R.string.internet_error) || it.message == "404 Not Found")) {
                         requireContext().shortToast("Fatal Error")
                     }
-                    Log.d("esh", getString(R.string.internet_error))
                     gistsRefresh.enable()
                     gistsRefresh.isRefreshing = false
                     Log.d("esh", it.message)
