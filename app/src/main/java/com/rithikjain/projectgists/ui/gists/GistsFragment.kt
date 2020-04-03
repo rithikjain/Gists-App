@@ -161,6 +161,7 @@ class GistsFragment : Fragment() {
                     files = it.data as MutableList<File>
                     if (files.isNotEmpty()) {
                         gistListAdapter.updateGists(files)
+                        noGistsText.hide()
                     } else {
                         noGistsText.show()
                     }

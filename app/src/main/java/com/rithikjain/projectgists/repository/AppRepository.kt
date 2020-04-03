@@ -29,4 +29,6 @@ class AppRepository(private val apiClient: ApiClient, private val appDao: AppDao
     fun updateGist(updateGistRequest: UpdateGistRequest) =
         makeRequest { apiClient.updateGist(updateGistRequest) }
 
+    suspend fun deleteLocalGist() = appDao.deleteAllGists()
+
 }

@@ -2,18 +2,18 @@ package com.rithikjain.projectgists.ui.profile
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
-
 import com.rithikjain.projectgists.R
 import com.rithikjain.projectgists.ui.auth.AuthActivity
 import kotlinx.android.synthetic.main.fragment_profile.*
+import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 
 class ProfileFragment : Fragment() {
@@ -28,6 +28,8 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val profileViewModel by sharedViewModel<ProfileViewModel>()
 
         profileToolbar.title = "My Profile"
         profileToolbar.navigationIcon =
@@ -53,6 +55,9 @@ class ProfileFragment : Fragment() {
 
         logOutBtn.setOnClickListener {
             auth.signOut()
+
+            profileViewModel.deleteLocalGist()
+
             val intent = Intent(activity, AuthActivity::class.java)
             startActivity(intent)
             requireActivity().finish()
