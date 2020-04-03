@@ -39,7 +39,11 @@ open class BaseRepo {
                 databaseQuery.invoke()
             }
             Result.Status.ERROR -> {
-                emit(Result.error(response.message!!))
+                if (response.message!! == "404 Not Found") {
+                    databaseQuery.invoke()
+                } else {
+                    emit(Result.error(response.message))
+                }
             }
             else -> {
             }
