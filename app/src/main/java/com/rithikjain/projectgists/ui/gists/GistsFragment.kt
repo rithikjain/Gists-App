@@ -1,5 +1,7 @@
 package com.rithikjain.projectgists.ui.gists
 
+import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -57,8 +59,6 @@ class GistsFragment : Fragment() {
         gistsRefresh.isRefreshing = false
         noGistsText.hide()
 
-        Log.d("esh", "Token: ${sharedPref.getString(Constants.PREF_AUTH_TOKEN, "")}")
-
         toolbarTitle.text = "My Gists"
         toolbarSubtitle.text = "${firebaseAuth.currentUser!!.displayName}"
 
@@ -82,7 +82,12 @@ class GistsFragment : Fragment() {
         getGists(gistsViewModel, gistListAdapter)
 
         gistsRefresh.setOnRefreshListener {
-            getGists(gistsViewModel, gistListAdapter)
+            if (isNetworkAvailable()) {
+                getGists(gistsViewModel, gistListAdapter)
+            } else {
+                gistsRefresh.isRefreshing = false
+                requireContext().shortToast("No Internet")
+            }
         }
 
         gistsRecyclerView.addOnItemClickListener(object : OnItemClickListener {
@@ -150,6 +155,13 @@ class GistsFragment : Fragment() {
             val action = GistsFragmentDirections.actionGistsFragmentToAddGistFragment()
             findNavController().navigate(action)
         }
+    }
+
+    private fun isNetworkAvailable(): Boolean {
+        val connectivityManager =
+            requireContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetworkInfo = connectivityManager.activeNetworkInfo
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected
     }
 
     private fun getGists(gistsViewModel: GistsViewModel, gistListAdapter: GistListAdapter) {
