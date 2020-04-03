@@ -7,6 +7,8 @@
 
 An unofficial mobile client to create and view GitHub Gists
 
+CodeView used https://github.com/kbiakov/CodeView-Android
+
 # Features
 - [x] GitHub OAuth
 - [x] Retreive Gists from GitHub
