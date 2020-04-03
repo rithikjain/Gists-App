@@ -19,7 +19,7 @@ interface AppDao {
     @Query("DELETE FROM gists")
     suspend fun deleteAllGists()
 
-    @Query("DELETE FROM gists WHERE Filename=:filename")
-    suspend fun deleteGist(filename: String)
+    @Query("DELETE FROM gists WHERE Filename=:filename AND GistID=:gistID")
+    suspend fun deleteGist(filename: String, gistID: String)
 
 }

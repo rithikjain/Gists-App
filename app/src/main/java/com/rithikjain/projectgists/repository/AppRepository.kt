@@ -22,7 +22,7 @@ class AppRepository(private val apiClient: ApiClient, private val appDao: AppDao
         makeRequest { apiClient.createGist(createGistRequest) }
 
     fun deleteGist(deleteGistRequest: DeleteGistRequest) = deleteFromNetworkAndDB(
-        databaseQuery = { appDao.deleteGist(deleteGistRequest.Filename) },
+        databaseQuery = { appDao.deleteGist(deleteGistRequest.Filename, deleteGistRequest.GistID) },
         networkCall = { apiClient.deleteGist(deleteGistRequest) }
     )
 
