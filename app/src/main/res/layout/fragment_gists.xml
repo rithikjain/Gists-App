@@ -89,6 +89,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginBottom="32dp"
         android:layout_marginEnd="16dp"
+        app:tint="@color/colorPrimary"
         android:src="@drawable/ic_add" />
 
     <com.github.ybq.android.spinkit.SpinKitView
