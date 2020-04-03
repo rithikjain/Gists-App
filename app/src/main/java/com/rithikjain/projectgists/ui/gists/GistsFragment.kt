@@ -137,6 +137,7 @@ class GistsFragment : Fragment() {
                                         if (it.message != "404 Not Found") {
                                             requireContext().shortToast("Error Occurred!")
                                         } else {
+                                            gistListAdapter.remove(position)
                                             dialog.dismiss()
                                             requireContext().shortToast("Deleted")
                                         }
