@@ -25,6 +25,27 @@ open class BaseRepo {
         }
     }
 
+    protected fun <T> deleteFromNetworkAndDB(
+        databaseQuery: suspend () -> Unit,
+        networkCall: suspend () -> Result<T>
+    ) = liveData(Dispatchers.IO) {
+        emit(Result.loading())
+
+        val response = networkCall()
+
+        when (response.status) {
+            Result.Status.SUCCESS -> {
+                emit(Result.success(response.data))
+                databaseQuery.invoke()
+            }
+            Result.Status.ERROR -> {
+                emit(Result.error(response.message!!))
+            }
+            else -> {
+            }
+        }
+    }
+
     protected fun <T, A> makeRequestAndSave(
         databaseQuery: () -> LiveData<T>,
         networkCall: suspend () -> Result<A>,
@@ -44,7 +65,8 @@ open class BaseRepo {
                 emit(Result.error(response.message!!))
                 emitSource(source)
             }
-            else -> {}
+            else -> {
+            }
         }
     }
 }

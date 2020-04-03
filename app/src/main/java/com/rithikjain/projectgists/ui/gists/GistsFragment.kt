@@ -152,28 +152,25 @@ class GistsFragment : Fragment() {
         gistsViewModel.viewAllGists().observe(viewLifecycleOwner, Observer {
             when (it.status) {
                 Result.Status.LOADING -> {
-                    gistsProgress.show()
                     gistsRefresh.disable()
-                    gistsRecyclerView.hide()
                 }
                 Result.Status.SUCCESS -> {
-                    gistsProgress.hide()
                     gistsRefresh.enable()
-                    gistsRecyclerView.show()
                     gistsRefresh.isRefreshing = false
 
-                    if (!it.data!!.Files.isNullOrEmpty()) {
-                        files = it.data.Files as MutableList<File>
+                    files = it.data as MutableList<File>
+                    if (files.isNotEmpty()) {
                         gistListAdapter.updateGists(files)
                     } else {
                         noGistsText.show()
                     }
                 }
                 Result.Status.ERROR -> {
-                    requireContext().shortToast("Error in fetching gists")
-                    gistsProgress.hide()
+                    if (it.message != getString(R.string.internet_error)) {
+                        requireContext().shortToast("Fatal Error")
+                    }
+                    Log.d("esh", getString(R.string.internet_error))
                     gistsRefresh.enable()
-                    gistsRecyclerView.show()
                     gistsRefresh.isRefreshing = false
                     Log.d("esh", it.message)
                 }

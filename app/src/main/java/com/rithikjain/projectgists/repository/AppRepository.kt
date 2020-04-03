@@ -12,13 +12,19 @@ class AppRepository(private val apiClient: ApiClient, private val appDao: AppDao
     fun registerUser(registerRequest: RegisterRequest) =
         makeRequest { apiClient.registerUser(registerRequest) }
 
-    fun viewAllGists() = makeRequest { apiClient.viewAllGists() }
+    fun viewAllGists() = makeRequestAndSave(
+        databaseQuery = { appDao.getAllGists() },
+        networkCall = { apiClient.viewAllGists() },
+        saveCallResult = { appDao.insertGists(it.Files) }
+    )
 
     fun createGist(createGistRequest: CreateGistRequest) =
         makeRequest { apiClient.createGist(createGistRequest) }
 
-    fun deleteGist(deleteGistRequest: DeleteGistRequest) =
-        makeRequest { apiClient.deleteGist(deleteGistRequest) }
+    fun deleteGist(deleteGistRequest: DeleteGistRequest) = deleteFromNetworkAndDB(
+        databaseQuery = { appDao.deleteGist(deleteGistRequest.Filename) },
+        networkCall = { apiClient.deleteGist(deleteGistRequest) }
+    )
 
     fun updateGist(updateGistRequest: UpdateGistRequest) =
         makeRequest { apiClient.updateGist(updateGistRequest) }

@@ -1,6 +1,4 @@
 <resources>
     <string name="app_name">Easy Gists</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="internet_error">Network called failed with message Unable to resolve host \"gists-api.herokuapp.com\": No address associated with hostname</string>
 </resources>

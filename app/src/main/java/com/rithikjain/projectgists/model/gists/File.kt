@@ -1,13 +1,17 @@
 package com.rithikjain.projectgists.model.gists
 
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 
+@Entity(tableName = "gists")
 data class File(
     @SerializedName("content")
     val Content: String,
     @SerializedName("description")
     val Description: String,
+    @PrimaryKey
     @SerializedName("filename")
     val Filename: String,
     @SerializedName("gist_id")
