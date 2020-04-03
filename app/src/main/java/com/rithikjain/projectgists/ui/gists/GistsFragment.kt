@@ -152,8 +152,12 @@ class GistsFragment : Fragment() {
         })
 
         addGistBtn.setOnClickListener {
-            val action = GistsFragmentDirections.actionGistsFragmentToAddGistFragment()
-            findNavController().navigate(action)
+            if (isNetworkAvailable()) {
+                val action = GistsFragmentDirections.actionGistsFragmentToAddGistFragment()
+                findNavController().navigate(action)
+            } else {
+                requireContext().shortToast("Need internet to create")
+            }
         }
     }
 

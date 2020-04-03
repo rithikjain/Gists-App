@@ -1,5 +1,7 @@
 package com.rithikjain.projectgists.ui.code
 
+import android.content.Context
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.rithikjain.projectgists.R
+import com.rithikjain.projectgists.util.shortToast
 import io.github.kbiakov.codeview.adapters.Options
 import io.github.kbiakov.codeview.highlight.ColorTheme
 import kotlinx.android.synthetic.main.fragment_code.*
@@ -45,13 +48,17 @@ class CodeFragment : Fragment() {
             codeToolbar.inflateMenu(R.menu.code_toolbar_menu)
             codeToolbar.setOnMenuItemClickListener {
                 if (it.itemId == R.id.editButton) {
-                    val action = CodeFragmentDirections.actionCodeFragmentToEditGistFragment(
-                        gistID,
-                        filename,
-                        description,
-                        codeString
-                    )
-                    findNavController().navigate(action)
+                    if (isNetworkAvailable()) {
+                        val action = CodeFragmentDirections.actionCodeFragmentToEditGistFragment(
+                            gistID,
+                            filename,
+                            description,
+                            codeString
+                        )
+                        findNavController().navigate(action)
+                    } else {
+                        requireContext().shortToast("Need internet to edit")
+                    }
                 }
                 return@setOnMenuItemClickListener false
             }
@@ -62,5 +69,12 @@ class CodeFragment : Fragment() {
                 .withCode(codeString)
                 .withTheme(ColorTheme.MONOKAI)
         )
+    }
+
+    private fun isNetworkAvailable(): Boolean {
+        val connectivityManager =
+            requireContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetworkInfo = connectivityManager.activeNetworkInfo
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected
     }
 }
