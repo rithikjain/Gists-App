@@ -7,6 +7,8 @@
 
 An unofficial mobile client to create, update, delete and view GitHub Gists
 
+The app is written in Kotlin with following the MVVM architecture and uses the Jetpack components
+
 CodeView used: https://github.com/kbiakov/CodeView-Android
 
 # Features
