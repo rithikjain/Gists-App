@@ -23,8 +23,8 @@ object ApiService {
         val httpClient = OkHttpClient.Builder()
         val sharedPref = PrefHelper.customPrefs(context, Constants.PREF_NAME)
 
-        httpClient.connectTimeout(20, TimeUnit.SECONDS)
-        httpClient.readTimeout(20, TimeUnit.SECONDS)
+        httpClient.connectTimeout(25, TimeUnit.SECONDS)
+        httpClient.readTimeout(25, TimeUnit.SECONDS)
 
         httpClient.addInterceptor { chain ->
             val original = chain.request()
