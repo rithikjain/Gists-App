@@ -6,6 +6,7 @@ import com.rithikjain.projectgists.util.PrefHelper
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 object ApiService {
     fun createRetrofit(context: Context): ApiInterface {
@@ -21,6 +22,9 @@ object ApiService {
     private fun getOkHttpClient(context: Context): OkHttpClient {
         val httpClient = OkHttpClient.Builder()
         val sharedPref = PrefHelper.customPrefs(context, Constants.PREF_NAME)
+
+        httpClient.connectTimeout(20, TimeUnit.SECONDS)
+        httpClient.readTimeout(20, TimeUnit.SECONDS)
 
         httpClient.addInterceptor { chain ->
             val original = chain.request()
